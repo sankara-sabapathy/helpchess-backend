@@ -7,6 +7,8 @@ const notesController = require('controllers/notes');
 const authController = require('controllers/auth');
 const usersController = require('controllers/users');
 const rolesController = require('controllers/roles');
+const donorsController = require('controllers/donors');
+const donationsController = require('controllers/donations');
 
 // middlewares
 const {
@@ -55,6 +57,54 @@ router.patch(
   authorizeInternalAccess(PERMISSIONS.usersWrite),
   usersController.patch
 );
+
+// donors
+router
+  .route('/v1/donors')
+  .get(
+    authenticateByCookie,
+    authorizeInternalAccess(PERMISSIONS.donorsRead),
+    donorsController.getAll
+  )
+  .post(
+    authenticateByCookie,
+    authorizeInternalAccess(PERMISSIONS.donorsWrite),
+    donorsController.create
+  );
+
+router
+  .route('/v1/donors/:id')
+  .get(
+    authenticateByCookie,
+    authorizeInternalAccess(PERMISSIONS.donorsRead),
+    donorsController.getById
+  )
+  .patch(
+    authenticateByCookie,
+    authorizeInternalAccess(PERMISSIONS.donorsWrite),
+    donorsController.patch
+  );
+
+// donations
+router.post(
+  '/v1/donations/manual',
+  authenticateByCookie,
+  authorizeInternalAccess(PERMISSIONS.donationsWrite),
+  donationsController.createManual
+);
+
+router
+  .route('/v1/donations/:id')
+  .get(
+    authenticateByCookie,
+    authorizeInternalAccess(PERMISSIONS.donationsRead),
+    donationsController.getById
+  )
+  .patch(
+    authenticateByCookie,
+    authorizeInternalAccess(PERMISSIONS.donationsWrite),
+    donationsController.patch
+  );
 
 // notes - example resource demonstrating the route -> controller -> service -> model pattern
 // and the available auth middlewares. Replace with your own resources.

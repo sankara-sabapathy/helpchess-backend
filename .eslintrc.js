@@ -15,6 +15,15 @@ module.exports = {
     'prefer-destructuring': ['warn', { object: true, array: false }],
     'no-unused-vars': ['error', { argsIgnorePattern: '^_' }]
   },
+  overrides: [
+    {
+      files: ['tests/**/*.js'],
+      env: { jest: true },
+      rules: {
+        'import/no-extraneous-dependencies': ['error', { devDependencies: true }]
+      }
+    }
+  ],
   settings: {
     'import/resolver': {
       node: {

@@ -31,8 +31,15 @@
       "notes": "notes",
       "viewer": "viewer",
       "usersRead": "users.read",
-      "usersWrite": "users.write"
+      "usersWrite": "users.write",
+      "donorsRead": "donors.read",
+      "donorsWrite": "donors.write",
+      "donationsRead": "donations.read",
+      "donationsWrite": "donations.write"
     }
+  },
+  "donations": {
+    "causeSuggestions": ["QRv2 Payment", "General Donation", "Temple of Chess", "Khelo Chess India"]
   },
   "exampleQueue": {
     "url": "",

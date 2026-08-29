@@ -52,7 +52,9 @@ module.exports = {
    * passed in the Authorization header.
    */
   authenticate: async (req, res, next) => {
-    if (req.header('Authorization') === config.get('accessToken')) {
+    const configuredToken = config.get('accessToken');
+    const authHeader = req.header('Authorization');
+    if (configuredToken && authHeader && authHeader === configuredToken) {
       next();
       return;
     }

@@ -1,0 +1,7 @@
+{
+  "port": "0",
+  "serviceName": "helpchess-test",
+  "timezone": "Asia/Kolkata",
+  "dbName": "helpchess-test",
+  "accessTokenValidityInSeconds": "3600"
+}

@@ -17,7 +17,14 @@ const DEFAULT_ROLES = [
     name: 'Administrator',
     code: ADMIN_ROLE_CODE,
     description: 'Full system access',
-    permissions: [PERMISSIONS.usersRead, PERMISSIONS.usersWrite],
+    permissions: [
+      PERMISSIONS.usersRead,
+      PERMISSIONS.usersWrite,
+      PERMISSIONS.donorsRead,
+      PERMISSIONS.donorsWrite,
+      PERMISSIONS.donationsRead,
+      PERMISSIONS.donationsWrite
+    ],
     status: 'active'
   },
   {
@@ -37,7 +44,20 @@ const seedRoles = async () => {
         await rolesModel.create({ roleData });
         console.log(`Created role: ${roleData.code}`);
       } else {
-        console.log(`Role already exists: ${roleData.code}`);
+        const existingPermissions = existing.permissions || [];
+        const mergedPermissions = [...new Set([...existingPermissions, ...roleData.permissions])];
+        const hasMissing = roleData.permissions.some(
+          (permission) => !existingPermissions.includes(permission)
+        );
+        if (hasMissing) {
+          await rolesModel.patch({
+            roleId: existing._id,
+            updateData: { permissions: mergedPermissions }
+          });
+          console.log(`Updated role permissions: ${roleData.code}`);
+        } else {
+          console.log(`Role already exists: ${roleData.code}`);
+        }
       }
     })
   );

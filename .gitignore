@@ -41,3 +41,7 @@ config/local.json
 .vscode
 .vscode-test
 .DS_Store
+
+# Bruno API Client Collection
+bruno/
+
